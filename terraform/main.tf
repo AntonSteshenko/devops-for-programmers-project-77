@@ -114,16 +114,16 @@ resource "datadog_monitor" "cpumonitor" {
   query = "avg(last_1m):avg:system.cpu.system{*} by {host} > 60"
 }
 
-resource "datadog_monitor" "http" {
-  name               = "Check http"
-  type               = "service check"
-  message            = "Monitor triggered."
-  escalation_message = "Escalation message"
+#resource "datadog_monitor" "http" {
+#  name               = "Check http"
+#  type               = "service check"
+#  message            = "Monitor triggered."
+#  escalation_message = "Escalation message"
 
   #query = "avg(last_1h):avg:aws.ec2.cpu{environment:foo,host:foo} by {host} > 4"
-  query = "http.over(*).last(3).by(host).count_by_status()"
-  monitor_thresholds {
-    warning  = 2
-    critical = 4
-  }
-}
+ # query = "http.over(*).last(3).by(host).count_by_status()"
+#  monitor_thresholds {
+ #   warning  = 2
+ #   critical = 4
+#  }
+#}
