@@ -1,0 +1,41 @@
+- hosts: webservers
+  remote_user: "{{ deploy_user }}"
+
+  tasks:
+    - name: include role
+      include_role:
+        name: geerlingguy.pip
+
+    - name: create directory
+      file:
+        path: /home/app/
+        state: directory
+
+    - name: copy docker-compose
+      copy:
+        src: docker-compose.yml
+        dest: /home/app/docker-compose.yml
+      tags: deploy
+
+    - name: create .env
+      template:
+        src: env.j2
+        dest: /home/app/.env
+      tags: deploy
+
+    - name: Create and start services
+      community.docker.docker_compose:
+        project_src: /home/app/
+      register: output
+
+    - name: Restart services
+      community.docker.docker_compose:
+        project_src: /home/app/
+        build: false
+        restarted: true
+      tags: deploy
+
+    - name: Show results
+      ansible.builtin.debug:
+        var: output
+      tags: deploy

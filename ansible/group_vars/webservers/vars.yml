@@ -1,0 +1,16 @@
+pip_install_packages:
+  - name: docker
+  - name: docker-compose
+django_allowed_hosts: ".rdas.site localhost"
+
+datadog_api_key: "{{ vault_datadog_api_key }}"
+datadog_site: "datadoghq.eu"
+datadog_config:
+  logs_enabled: true
+  listeners:
+    - name: docker
+  config_providers:
+    - name: docker
+      polling: true
+  logs_config:
+    container_collect_all: true

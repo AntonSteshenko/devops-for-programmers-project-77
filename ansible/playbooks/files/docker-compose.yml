@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+  web:
+    image: risorsedaffari/django-camion:latest
+    command: sh -c "python3 manage.py migrate && python3 manage.py collectstatic --no-input &&  gunicorn appmain.wsgi:application --bind 0.0.0.0:8880"
+    volumes:
+      - static_files:/home/app/web/staticfiles
+      - media_files:/home/app/web/media
+    expose:
+      - 8880
+    env_file:
+      - .env
+    # depends_on:
+    #   - db
+    restart: always
+
+  # db:
+  #   image: postgres:13.0-alpine
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data/
+  #   env_file:
+  #     - .env
+
+  front:
+    image: risorsedaffari/front-camion:latest
+    volumes:
+      - static_files:/home/app/web/staticfiles
+      - media_files:/home/app/web/media
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    # datadog logs
+    labels:
+        com.datadoghq.ad.logs: '[{"source": "nginx", "service": "front"}]'
+
+volumes:
+  # postgres_data:
+  static_files:
+  media_files:

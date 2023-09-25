@@ -1,0 +1,24 @@
+- hosts: webservers
+  remote_user: "{{ deploy_user }}"
+  gather_facts: false
+
+  tasks:
+    - name: copy docker-compose
+      copy:
+        src: docker-compose.yml
+        dest: /home/app/docker-compose.yml
+      tags: deploy
+
+    - name: create .env
+      template:
+        src: env.j2
+        dest: /home/app/.env
+      tags: deploy
+
+    - name: Restart services
+      community.docker.docker_compose:
+        project_src: /home/app/
+        build: false
+        pull: true
+        restarted: true
+      tags: deploy

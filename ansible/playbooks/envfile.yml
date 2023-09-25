@@ -1,0 +1,9 @@
+- hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ../group_vars/all/vault.yml
+    - ../group_vars/webservers/vars.yml
+  tasks:
+    - template:
+        src: "../templates/env.j2"
+        dest: "../.env"

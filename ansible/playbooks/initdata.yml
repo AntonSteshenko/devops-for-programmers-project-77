@@ -1,0 +1,14 @@
+- hosts: webservers
+  remote_user: "{{ deploy_user }}"
+  gather_facts: no
+
+  tasks:
+    - name: copy demo data
+      copy:
+        src: demo-data.json
+        dest: /home/app/demo-data.json
+
+    - name: migrate demo data
+      shell: |
+        cd /home/app
+        cat demo-data.json  | docker-compose run web python3 manage.py loaddata --format=json -

@@ -1,0 +1,94 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$yEdhggqGuY7dTxY07qDnRt$YtCQkZiQjvU48XlnS2O2MRYXWrIn6CS0hareeMoE35U=",
+      "last_login": "2023-09-21T09:55:22.769Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "risorsedaffari@gmail.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-09-22T06:58:20.837Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$0VaDZotGJXOGsDOjP8h9HM$pz7UU2RwsI6NcOf3dWUjUcHPAw1Qo9TYGdq39oskjYc=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "superuser",
+      "first_name": "Superuser",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-09-21T09:56:25Z",
+      "groups": [2],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$BbqTbxBrCrQu01Tjc0hpUg$qT7E9FiHNtC+L47l/C5mbTRiAnlFAVzHsm+EPMYaeu0=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "venditore",
+      "first_name": "Venditore",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-09-21T09:59:45Z",
+      "groups": [1],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "seller",
+      "permissions": [29, 30, 31, 32, 25, 26, 27, 28]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": { "name": "holder", "permissions": [] }
+  },
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": { "name": "allestimenti", "permissions": [] }
+  },
+  {
+    "model": "manager.manager",
+    "pk": 8,
+    "fields": {
+      "user": 8,
+      "cell": null,
+      "models_list": "TGE TGX TGL TGM TGS",
+      "types_list": "MAN SEMIRIMORCHIO USATO"
+    }
+  },
+  {
+    "model": "manager.manager",
+    "pk": 9,
+    "fields": {
+      "user": 9,
+      "cell": null,
+      "models_list": "TGE TGX TGL TGM TGS",
+      "types_list": "MAN SEMIRIMORCHIO USATO"
+    }
+  }
+]
