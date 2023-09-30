@@ -6,7 +6,7 @@ terraform {
     organization = "risorsedaffari"
 
     workspaces {
-      name = "project"
+      name = "project3"
     }
   }
 }

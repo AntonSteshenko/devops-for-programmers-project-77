@@ -10,16 +10,7 @@ services:
       - 8880
     env_file:
       - .env
-    # depends_on:
-    #   - db
     restart: always
-
-  # db:
-  #   image: postgres:13.0-alpine
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data/
-  #   env_file:
-  #     - .env
 
   front:
     image: risorsedaffari/front-camion:latest
@@ -32,9 +23,8 @@ services:
       - web
     # datadog logs
     labels:
-        com.datadoghq.ad.logs: '[{"source": "nginx", "service": "front"}]'
+      com.datadoghq.ad.logs: '[{"source": "nginx", "service": "front"}]'
 
 volumes:
-  # postgres_data:
   static_files:
   media_files:

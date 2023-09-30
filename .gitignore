@@ -1,4 +1,4 @@
 tmp
 .env
 terraform/secrets.auto.tfvars
-data
+

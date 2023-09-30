@@ -9,10 +9,6 @@ terraform {
     datadog = {
       source = "DataDog/datadog"
     }
-    # zabbix = {
-    #   source = "claranet/zabbix"
-    #   version = "0.4.0"
-    # } 
   }
 }
 
@@ -26,8 +22,3 @@ provider "datadog" {
   api_url = "https://api.datadoghq.eu/"
 }
 
-# provider "zabbix" {
-#   user       = var.zabbix_user
-#   password   = var.zabbix_password
-#   server_url = var.zabbix_server_url
-# }
