@@ -18,7 +18,8 @@ resource "digitalocean_droplet" "camion-demo-1-droplet" {
   name   = "camion-demo-1"
   region = "fra1"
   size   = "s-1vcpu-1gb"
-  ssh_keys   = [data.digitalocean_ssh_key.my_ssh_key.id]
+  ssh_keys   = [data.digitalocean_ssh_key.office_ssh_key.id,
+                data.digitalocean_ssh_key.laptop_ssh_key.id]
 }
 
 resource "digitalocean_droplet" "camion-demo-2-droplet" {
@@ -26,7 +27,8 @@ resource "digitalocean_droplet" "camion-demo-2-droplet" {
   name   = "camion-demo-2"
   region = "fra1"
   size   = "s-1vcpu-1gb"
-  ssh_keys   = [data.digitalocean_ssh_key.my_ssh_key.id]
+  ssh_keys   = [data.digitalocean_ssh_key.office_ssh_key.id,
+                data.digitalocean_ssh_key.laptop_ssh_key.id]
 }
 
 # Create a DNS record for each droplet
@@ -83,7 +85,7 @@ resource "digitalocean_loadbalancer" "public" {
 resource "digitalocean_record" "camion-demo-dns" {
   domain = data.digitalocean_domain.default.name
   type   = "A"
-  name   = "camion-demo"
+  name   = "camion-demo-lb"
   value  = digitalocean_loadbalancer.public.ip
 }
 
@@ -93,37 +95,39 @@ resource "digitalocean_database_db" "camion-demo" {
   name       = "camion-demo"
 }
 
-resource "digitalocean_database_firewall" "allow-droplets" {
-  cluster_id = data.digitalocean_database_cluster.main.id
+resource "datadog_synthetics_test" "test_uptime" {
+  name      = "Check service availible"
+  type      = "api"
+  subtype   = "http"
+  status    = "live"
+  message   = "Notify @pagerduty"
+  locations = ["aws:eu-central-1"]
+  tags      = ["foo:bar", "foo", "env:test"]
 
-  rule {
-    type  = "droplet"
-    value = digitalocean_droplet.camion-demo-1-droplet.id
+  request_definition {
+    method = "GET"
+    url    = "https://camion-demo-lb.rdas.site/"
   }
 
-  rule {
-    type  = "droplet"
-    value = digitalocean_droplet.camion-demo-2-droplet.id
+  request_headers = {
+    Content-Type = "application/json"
+  }
+
+  assertion {
+    type     = "statusCode"
+    operator = "is"
+    target   = "200"
+  }
+
+  options_list {
+    tick_every = 900
+    retry {
+      count    = 2
+      interval = 300
+    }
+    monitor_options {
+      renotify_interval = 120
+    }
   }
 }
 
-resource "datadog_monitor" "cpumonitor" {
-  name = "cpu monitor"
-  type = "metric alert"
-  message = "CPU usage alert"
-  query = "avg(last_1m):avg:system.cpu.system{*} by {host} > 60"
-}
-
-#resource "datadog_monitor" "http" {
-#  name               = "Check http"
-#  type               = "service check"
-#  message            = "Monitor triggered."
-#  escalation_message = "Escalation message"
-
-  #query = "avg(last_1h):avg:aws.ec2.cpu{environment:foo,host:foo} by {host} > 4"
- # query = "http.over(*).last(3).by(host).count_by_status()"
-#  monitor_thresholds {
- #   warning  = 2
- #   critical = 4
-#  }
-#}

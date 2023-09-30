@@ -1,5 +1,9 @@
-data digitalocean_ssh_key "my_ssh_key" {
+data digitalocean_ssh_key "office_ssh_key" {
   name = "Lenovo"
+}
+
+data digitalocean_ssh_key "laptop_ssh_key" {
+  name = "Laptop Lenovo"
 }
 
 data digitalocean_domain "default" {
@@ -14,5 +18,5 @@ data "digitalocean_database_cluster" "main" {
   name = "db-postgresql"
 }
 
-data "zabbix_server" "main" {
-}
+# data "zabbix_server" "main" {
+# }
