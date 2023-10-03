@@ -35,5 +35,3 @@ deploy:
 load-init-data:
 	ansible-playbook ansible/playbooks/initdata.yml -i ansible/inventory.ini --vault-password-file tmp/ansible-vault-password
 
-install-datadog-agent:
-	ansible-playbook ansible/playbooks/datadog.yml -i ansible/inventory.ini --vault-password-file tmp/ansible-vault-password
