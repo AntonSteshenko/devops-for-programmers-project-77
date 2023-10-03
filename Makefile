@@ -23,7 +23,7 @@ infrastructure-destroy:
 	terraform -chdir=terraform/ destroy
 
 setup-servers:
-	ansible-playbook ansible/playbooks/setup.yml -i ansible/inventory.ini --vault-password-file tmp/ansible-vault-password
+	ansible-playbook ansible/playbook.yml -i ansible/inventory.ini --vault-password-file tmp/ansible-vault-password
 
 clean-ssh:
 	ssh-keygen -f "/home/anton/.ssh/known_hosts" -R "camion-demo-1.rdas.site" 
