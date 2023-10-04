@@ -18,8 +18,8 @@ resource "digitalocean_droplet" "camion-demo-1-droplet" {
   name   = "camion-demo-1"
   region = "fra1"
   size   = "s-1vcpu-1gb"
-  ssh_keys   = [data.digitalocean_ssh_key.office_ssh_key.id,
-                data.digitalocean_ssh_key.laptop_ssh_key.id]
+  ssh_keys = [data.digitalocean_ssh_key.office_ssh_key.id,
+  data.digitalocean_ssh_key.laptop_ssh_key.id]
 }
 
 resource "digitalocean_droplet" "camion-demo-2-droplet" {
@@ -27,8 +27,8 @@ resource "digitalocean_droplet" "camion-demo-2-droplet" {
   name   = "camion-demo-2"
   region = "fra1"
   size   = "s-1vcpu-1gb"
-  ssh_keys   = [data.digitalocean_ssh_key.office_ssh_key.id,
-                data.digitalocean_ssh_key.laptop_ssh_key.id]
+  ssh_keys = [data.digitalocean_ssh_key.office_ssh_key.id,
+  data.digitalocean_ssh_key.laptop_ssh_key.id]
 }
 
 # Create a DNS record for each droplet
@@ -76,9 +76,9 @@ resource "digitalocean_loadbalancer" "public" {
     port     = 22
     protocol = "tcp"
   }
-  
+
   redirect_http_to_https = true
-  droplet_ids = [digitalocean_droplet.camion-demo-1-droplet.id, digitalocean_droplet.camion-demo-2-droplet.id]
+  droplet_ids            = [digitalocean_droplet.camion-demo-1-droplet.id, digitalocean_droplet.camion-demo-2-droplet.id]
 }
 
 # Create a DNS record for the load balancer

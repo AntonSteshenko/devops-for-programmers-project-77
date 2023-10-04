@@ -1,16 +1,16 @@
-data digitalocean_ssh_key "office_ssh_key" {
+data "digitalocean_ssh_key" "office_ssh_key" {
   name = "Lenovo"
 }
 
-data digitalocean_ssh_key "laptop_ssh_key" {
+data "digitalocean_ssh_key" "laptop_ssh_key" {
   name = "Laptop Lenovo"
 }
 
-data digitalocean_domain "default" {
+data "digitalocean_domain" "default" {
   name = "rdas.site"
 }
 
-data digitalocean_certificate "test" {
+data "digitalocean_certificate" "test" {
   name = "test-cert"
 }
 
