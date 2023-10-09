@@ -4,6 +4,7 @@ terraform {
     organization = "risorsedaffari"
     workspaces {
       name = "project3"
+      token=""
     }
   }
 }
