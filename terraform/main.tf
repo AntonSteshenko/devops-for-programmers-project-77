@@ -1,17 +1,4 @@
-# Description: This file contains the main configuration for Terraform
 
-# # Terraform cloud 
-# terraform {
-#   cloud {
-#     organization = "risorsedaffari"
-
-#     workspaces {
-#       name = "project3"
-#     }
-#   }
-# }
-
-# Create droplets
 
 resource "digitalocean_droplet" "camion-demo-1-droplet" {
   image  = "docker-20-04"
