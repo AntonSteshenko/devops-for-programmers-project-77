@@ -18,5 +18,3 @@ data "digitalocean_database_cluster" "main" {
   name = "db-postgresql"
 }
 
-# data "zabbix_server" "main" {
-# }
