@@ -1,9 +1,9 @@
 variable "do_token" {
-    type = string
+  type = string
 }
 variable "datadog_api_key" {
-    type = string
+  type = string
 }
 variable "datadog_app_key" {
-    type = string
+  type = string
 }
